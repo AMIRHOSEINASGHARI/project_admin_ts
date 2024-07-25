@@ -6,6 +6,7 @@ import { PiPower } from "react-icons/pi";
 import { MdOutlineLocationSearching } from "react-icons/md";
 // cmp
 import { Button } from "../ui/button";
+import SignoutButton from "./SignoutButton";
 
 const Navbar = () => {
   return (
@@ -19,9 +20,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Button className="btn_icon btn_color" variant={btn_icon_variant}>
-            <PiPower />
-          </Button>
+          <SignoutButton variant={btn_icon_variant} />
           <Button className="btn_icon btn_color" variant={btn_icon_variant}>
             <MdOutlineLocationSearching />
           </Button>
