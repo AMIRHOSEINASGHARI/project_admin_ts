@@ -26,6 +26,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import Loader from "@/components/shared/Loader";
+import clsx from "clsx";
 
 // form schema
 const formSchema = z.object({
@@ -155,8 +157,14 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
-                {loading ? "loading" : "Submit"}
+              <Button
+                type="submit"
+                disabled={loading}
+                className={clsx("w-full", {
+                  "bg-gray-100": loading,
+                })}
+              >
+                {loading ? <Loader text="Sending data..." /> : "Submit"}
               </Button>
             </div>
           </div>
