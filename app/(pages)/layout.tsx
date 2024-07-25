@@ -2,15 +2,16 @@
 import { redirect } from "next/navigation";
 // utils
 import { getServerSession } from "@/utils/session";
+import React from "react";
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+const PagesLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = getServerSession();
 
-  if (session) {
-    redirect("/dashboard");
+  if (!session) {
+    redirect("/login");
   }
 
   return <div>{children}</div>;
 };
 
-export default AuthLayout;
+export default PagesLayout;
