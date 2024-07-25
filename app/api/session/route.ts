@@ -10,7 +10,7 @@ export async function GET() {
   } catch (error) {
     console.log("Cannot connect to DB!", error);
     return NextResponse.json(
-      { msg: "Server Error!", success: false },
+      { msg: "Server Error!", success: false, session: null },
       { status: 500 }
     );
   }
@@ -20,7 +20,7 @@ export async function GET() {
 
     if (!session) {
       return NextResponse.json(
-        { msg: "UnAuthorized!", success: false },
+        { msg: "UnAuthorized!", success: false, session: null },
         { status: 401 }
       );
     }
@@ -31,7 +31,7 @@ export async function GET() {
     );
   } catch (error) {
     return NextResponse.json(
-      { msg: "Server Error!", success: false },
+      { msg: "Server Error!", success: false, session: null },
       { status: 500 }
     );
   }
