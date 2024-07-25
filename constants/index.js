@@ -11,6 +11,7 @@ import {
   PiEyeClosed,
   PiEyeClosedLight,
   PiEyeLight,
+  PiPower,
   PiUsersThree,
 } from "react-icons/pi";
 import { RiBloggerLine } from "react-icons/ri";
@@ -33,9 +34,20 @@ export const images = {
 export const icons = {
   eye_open: <PiEye />,
   eye_close: <PiEyeClosed />,
+  home: <AiOutlineHome />,
+  crypto: <LiaBitcoin />,
+  orders: <AiOutlineTruck />,
+  products: <TbBasket />,
+  plus: <AiOutlinePlusCircle />,
+  comments: <AiOutlineComment />,
+  users: <PiUsersThree />,
+  blogs: <RiBloggerLine />,
+  tasks: <LuListTodo />,
+  account: <MdOutlineManageAccounts />,
+  power: <PiPower />,
 };
 
-export const menuLinks = [
+export const sidebarMenuLinks = [
   {
     title: "Dashboard",
     image: <AiOutlineHome />,
@@ -90,5 +102,33 @@ export const menuLinks = [
     title: "Account",
     image: <MdOutlineManageAccounts />,
     link: "/account",
+  },
+];
+
+export const showProfileLinks = [
+  {
+    name: "Home",
+    icon: icons.home,
+    href: "/dashboard",
+  },
+  {
+    name: "Profile",
+    icon: icons.account,
+    href: "/account",
+  },
+  {
+    name: "Tasks",
+    icon: icons.tasks,
+    href: "/tasks",
+  },
+  {
+    name: "Products",
+    icon: icons.products,
+    href: "/products",
+  },
+  {
+    name: "New Product",
+    icon: icons.plus,
+    href: "/add-product",
   },
 ];

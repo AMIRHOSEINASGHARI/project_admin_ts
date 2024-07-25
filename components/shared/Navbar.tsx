@@ -9,6 +9,7 @@ import {
 // cmp
 import { Button } from "../ui/button";
 import SignoutButton from "./SignoutButton";
+import ShowProfile from "./ShowProfile";
 
 const Navbar = () => {
   return (
@@ -29,9 +30,10 @@ const Navbar = () => {
           <Button className="btn_icon btn_color" variant={btn_icon_variant}>
             <MdNotificationsNone />
           </Button>
-          <Button className="btn_icon btn_color" variant={btn_icon_variant}>
+          {/* <Button className="btn_icon btn_color" variant={btn_icon_variant}>
             <CgProfile />
-          </Button>
+          </Button> */}
+          <ShowProfile />
         </div>
       </div>
     </header>
