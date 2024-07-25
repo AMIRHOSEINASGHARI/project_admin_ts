@@ -19,7 +19,7 @@ export const login = async (data: {
   message: string;
   status: string;
   code: number;
-}> => {
+} | void> => {
   try {
     await connectDB();
 

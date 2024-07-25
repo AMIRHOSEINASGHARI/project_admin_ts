@@ -4,10 +4,13 @@
 import { useState } from "react";
 // next
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // z - hook-form
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+// actions
+import { login } from "@/actions/auth";
 // constants
 import { icons, images } from "@/constants";
 import { btn_icon_variant } from "@/constants/ui";
@@ -22,6 +25,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 // form schema
 const formSchema = z.object({
@@ -36,6 +40,9 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { toast } = useToast();
+  const { replace } = useRouter();
   const [passwordType, setPasswordType] = useState<"password" | "text">(
     "password"
   ); // for changing type of password input
@@ -47,85 +54,114 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const { username, password } = values;
+
+    setLoading(() => true);
+    const result = await login({ username, password });
+    setLoading(() => false);
+
+    toast({
+      title: result?.message,
+      variant: result?.code === 200 ? "default" : "destructive",
+    });
+
+    replace("/dashboard");
   };
 
   return (
     <Form {...form}>
-      <div className="h-screen w-full flex items-center justify-center max-md:p-4">
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-5 max-md:w-full md:w-[350px]"
-        >
-          <div>
-            <Image
-              src={images.logo}
-              priority
-              width={40}
-              height={40}
-              alt="logo"
-              className="mb-[30px]"
-            />
-            <h1 className="font-medium text-gray-600 text-[30px] mb-[10px]">
-              Welcome back! 👋🏻
-            </h1>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex items-center gap-[150px] bg-white p-[30px]"
+      >
+        <div className="max-xl:hidden bg-gray-100 rounded-3xl h-screen w-1/2 flex items-center justify-center">
+          <Image
+            src={images.authLogin}
+            priority
+            width={450}
+            height={450}
+            alt="auth-login"
+          />
+        </div>
+        <div className="max-xl:flex max-xl:justify-center max-xl:mt-16 max-xl:w-full">
+          <div className="sm:w-[400px]">
+            <div className="mb-[20px]">
+              <div className="mb-[30px]">
+                <Image
+                  src={images.logo}
+                  priority
+                  width={40}
+                  height={40}
+                  alt="logo"
+                />
+              </div>
+              <h1 className="font-medium text-gray-600 text-[30px] mb-[10px]">
+                Welcome back! 👋🏻
+              </h1>
+              <p className="text-gray-500 tracking-tight">
+                Please sign-in to your account and start the adventure
+              </p>
+            </div>
+            <div className="space-y-5">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="Transition"
+                        placeholder="Enter your username..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          className="Transition"
+                          placeholder="Enter your password..."
+                          type={passwordType}
+                          {...field}
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        onClick={() =>
+                          setPasswordType(
+                            passwordType === "password" ? "text" : "password"
+                          )
+                        }
+                        variant={btn_icon_variant}
+                        className="btn_icon absolute top-1 right-1 bottom-1"
+                      >
+                        {passwordType === "text"
+                          ? icons.eye_open
+                          : icons.eye_close}
+                      </Button>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full">
+                {loading ? "loading" : "Submit"}
+              </Button>
+            </div>
           </div>
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input
-                    className="Transition"
-                    placeholder="Enter your username..."
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <div className="relative">
-                  <FormControl>
-                    <Input
-                      className="Transition"
-                      placeholder="Enter your password..."
-                      type={passwordType}
-                      {...field}
-                    />
-                  </FormControl>
-                  <Button
-                    onClick={() =>
-                      setPasswordType(
-                        passwordType === "password" ? "text" : "password"
-                      )
-                    }
-                    variant={btn_icon_variant}
-                    className="btn_icon absolute top-1 right-1 bottom-1"
-                  >
-                    {passwordType === "password"
-                      ? icons.eye_open
-                      : icons.eye_close}
-                  </Button>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Submit
-          </Button>
-        </form>
-      </div>
+        </div>
+      </form>
     </Form>
   );
 };
