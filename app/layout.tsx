@@ -8,6 +8,7 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 // shadcn ui
 import { Toaster } from "@/components/ui/toaster";
+import ReactQueryClientProvider from "@/providers/ReactQueryClientProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,15 +30,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        {children}
-        <Toaster />
-      </body>
+      <ReactQueryClientProvider>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          {children}
+          <Toaster />
+        </body>
+      </ReactQueryClientProvider>
     </html>
   );
 }
