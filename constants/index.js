@@ -6,7 +6,13 @@ import {
 } from "react-icons/ai";
 import { LiaBitcoin } from "react-icons/lia";
 import { TbBasket } from "react-icons/tb";
-import { PiUsersThree } from "react-icons/pi";
+import {
+  PiEye,
+  PiEyeClosed,
+  PiEyeClosedLight,
+  PiEyeLight,
+  PiUsersThree,
+} from "react-icons/pi";
 import { RiBloggerLine } from "react-icons/ri";
 import { LuListTodo } from "react-icons/lu";
 import { MdOutlineManageAccounts } from "react-icons/md";
@@ -22,6 +28,11 @@ export const images = {
   notFound: "/images/404.svg",
   notAllowed: "/images/not-allowed.png",
   error: "/images/sad.png",
+};
+
+export const icons = {
+  eye_open: <PiEye />,
+  eye_close: <PiEyeClosed />,
 };
 
 export const menuLinks = [
