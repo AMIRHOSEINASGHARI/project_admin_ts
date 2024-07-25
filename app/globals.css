@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .btn_icon {
-  @apply w-auto h-auto p-2 rounded-xl text-[20px] bg-transparent hover:bg-gray-100 text-gray-700;
+  @apply w-auto h-auto p-2 rounded-xl text-[21px] bg-transparent;
+}
+
+.btn_color {
+  @apply text-gray-700;
 }
 
 .Transition {

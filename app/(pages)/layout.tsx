@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 // utils
 import { getServerSession } from "@/utils/session";
 import React from "react";
+import Navbar from "@/components/shared/Navbar";
 
 const PagesLayout = async ({ children }: { children: React.ReactNode }) => {
   const session = getServerSession();
@@ -11,7 +12,12 @@ const PagesLayout = async ({ children }: { children: React.ReactNode }) => {
     redirect("/login");
   }
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      <Navbar />
+      <div>{children}</div>
+    </div>
+  );
 };
 
 export default PagesLayout;
