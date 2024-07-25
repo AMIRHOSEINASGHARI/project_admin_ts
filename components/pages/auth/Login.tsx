@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Loader from "@/components/shared/Loader";
 import clsx from "clsx";
 
@@ -156,6 +157,26 @@ const Login = () => {
                 {loading ? <Loader text="Sending data..." /> : "Submit"}
               </Button>
             </div>
+            <Alert className="mt-5">
+              <AlertDescription>
+                <div className="space-y-2">
+                  <p>
+                    Owner usernmae :{" "}
+                    <span className="font-bold">owner-demo</span> / password :{" "}
+                    <span className="font-bold">demo1234</span>
+                  </p>
+                  <p>
+                    Admin usernmae :{" "}
+                    <span className="font-bold">admin-demo</span> / password :{" "}
+                    <span className="font-bold">demo1234</span>
+                  </p>
+                  <p>
+                    User usernmae : <span className="font-bold">user-demo</span>{" "}
+                    / password : <span className="font-bold">demo1234</span>
+                  </p>
+                </div>
+              </AlertDescription>
+            </Alert>
           </div>
         </div>
       </form>
