@@ -2,8 +2,10 @@
 import { btn_icon_variant } from "@/constants/ui";
 // react icons
 import { CgMenuLeft, CgProfile } from "react-icons/cg";
-import { PiPower } from "react-icons/pi";
-import { MdOutlineLocationSearching } from "react-icons/md";
+import {
+  MdNotificationsNone,
+  MdOutlineLocationSearching,
+} from "react-icons/md";
 // cmp
 import { Button } from "../ui/button";
 import SignoutButton from "./SignoutButton";
@@ -23,6 +25,9 @@ const Navbar = () => {
           <SignoutButton variant={btn_icon_variant} />
           <Button className="btn_icon btn_color" variant={btn_icon_variant}>
             <MdOutlineLocationSearching />
+          </Button>
+          <Button className="btn_icon btn_color" variant={btn_icon_variant}>
+            <MdNotificationsNone />
           </Button>
           <Button className="btn_icon btn_color" variant={btn_icon_variant}>
             <CgProfile />
