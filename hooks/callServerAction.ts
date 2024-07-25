@@ -1,12 +1,12 @@
 "use client";
 
-import { useToast } from "@/components/ui/use-toast";
 // react
 import { useState } from "react";
+// cmp
+import { useToast } from "@/components/ui/use-toast";
 
 const useServerAction = (
   asyncAction: Function,
-  fnInput: object,
   afterAction?: Function
 ): { loading: boolean; fn: Function } => {
   // asyncAction => to calling server action
@@ -16,7 +16,7 @@ const useServerAction = (
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
 
-  const fn = async () => {
+  const fn = async (fnInput: object) => {
     setLoading(() => true);
     const result = await asyncAction(fnInput);
     setLoading(() => false);

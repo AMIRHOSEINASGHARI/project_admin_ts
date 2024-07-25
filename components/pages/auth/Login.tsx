@@ -11,10 +11,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 // actions
 import { login } from "@/actions/auth";
+// hooks
+import useServerAction from "@/hooks/callServerAction";
 // constants
 import { icons, images } from "@/constants";
 import { btn_icon_variant } from "@/constants/ui";
-// shadcn ui
+// cmp
 import {
   Form,
   FormControl,
@@ -25,7 +27,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import Loader from "@/components/shared/Loader";
 import clsx from "clsx";
 
@@ -42,12 +43,10 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { toast } = useToast();
   const { replace } = useRouter();
   const [passwordType, setPasswordType] = useState<"password" | "text">(
     "password"
-  ); // for changing type of password input
+  );
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,20 +54,10 @@ const Login = () => {
       password: "",
     },
   });
+  const { fn, loading } = useServerAction(login, () => replace("/dashboard"));
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const { username, password } = values;
-
-    setLoading(() => true);
-    const result = await login({ username, password });
-    setLoading(() => false);
-
-    toast({
-      title: result?.message,
-      variant: result?.code === 200 ? "default" : "destructive",
-    });
-
-    replace("/dashboard");
+    fn(values);
   };
 
   return (
